@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metdata:
+  name: mysql
+  labels:
+    service: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: mysql
+  template:
+    metadata:
+      name: mysql
+      labels:
+        service: mysql
+    spec:
+      imagePullSecrets:
+      - name: dock
+      containers:
+      - name: mysql
+        image: sphari/mysql:2
+        securityContext:
+          capabilities:
+            add: ["NET_ADMIN"]
+        resources:
+          requests:
+            cpu: 100m
+            memory: 700Mi
+          limits:
+            cpu: 200m
+            memory: 1024Mi
+        ports:
+        - containerPort: 3306
+      restartPolicy: Always

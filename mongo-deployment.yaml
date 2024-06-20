@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metdata:
+  name: mongodb
+  labels:
+    service: mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: mongodb
+  template:
+    metadata:
+      name: mongodb
+      labels:
+        service: mongodb
+    spec:
+      imagePullSecrets:
+      - name: dock
+      containers:
+      - name: mongodb
+        image: sphari/mongodb:2
+        env:
+        - name: INSTANA_AGENT_HOST
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 50Mi
+          limits:
+            cpu: 200m
+            memory: 100Mi
+        ports:
+        - containerPort: 27017
+      restartPolicy: Always
+

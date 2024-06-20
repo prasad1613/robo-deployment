@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metdata:
+  name: payment
+  labels:
+    service: payment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: payment
+  template:
+    metadata:
+      name: payment
+      labels:
+        service: payment
+    spec:
+      imagePullSecrets:
+      - name: dock
+      containers:
+      - name: payment
+        image: sphari/payment:2
+        env:
+        - name: INSTANA_AGENT_HOST
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 50Mi
+          limits:
+            cpu: 200m
+            memory: 100Mi
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always
