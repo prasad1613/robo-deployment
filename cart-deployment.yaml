@@ -19,7 +19,7 @@ spec:
       - name: dock
       containers:
       - name: cart
-        image: sphari/cart:3
+        image: sphari/cart:23
         env:
         - name: INSTANA_AGENT_HOST
           valueFrom:
