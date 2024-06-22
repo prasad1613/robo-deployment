@@ -19,7 +19,7 @@ spec:
       - name: dock
       containers:
       - name: mysql
-        image: sphari/mysql:2
+        image: sphari/mysql:4
         securityContext:
           capabilities:
             add: ["NET_ADMIN"]
