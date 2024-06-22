@@ -19,7 +19,7 @@ spec:
       - name: dock
       containers:
       - name: user
-        image: sphari/user:2
+        image: sphari/user:3
         env:
         - name: INSTANA_AGENT_HOST
           valueFrom:
