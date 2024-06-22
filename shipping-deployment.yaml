@@ -19,7 +19,7 @@ spec:
       - name: dock
       containers:
       - name: shipping
-        image: sphari/shipping:2
+        image: sphari/shipping:3
         resources:
           requests:
             cpu: 100m
