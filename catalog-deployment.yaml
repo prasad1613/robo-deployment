@@ -19,7 +19,7 @@ spec:
       - name: dock
       containers:
       - name: catalogue
-        image: sphari/catalogue:2
+        image: sphari/catalogue:16
         env:
         - name: INSTANA_AGENT_HOST
           valueFrom:
