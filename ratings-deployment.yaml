@@ -19,7 +19,7 @@ spec:
       - name: dock
       containers:
       - name: ratings
-        image: sphari/ratings:2
+        image: sphari/ratings:3
         env:
         - name: INSTANA_AGENT_HOST
           valueFrom:
