@@ -25,15 +25,15 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: status.hostIP
-        ports:
-        - containerPort: 80
         resources:
-          limits:
-            cpu: 200m
-            memory: 100Mi
           requests:
             cpu: 100m
             memory: 50Mi
+          limits:
+            cpu: 200m
+            memory: 100Mi
+        ports:
+        - containerPort: 80
         readinessProbe:
           httpGet:
             path: /_health
