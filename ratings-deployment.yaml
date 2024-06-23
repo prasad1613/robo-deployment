@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
-metdata:
+metadata:
   name: ratings
   labels:
     service: ratings
@@ -34,12 +34,11 @@ spec:
             memory: 100Mi
         ports:
         - containerPort: 80
-        redinessProbe:
+        readinessProbe:
           httpGet:
             path: /_health
             port: 80
-          initialDeplaySeconds: 5
+          initialDelaySeconds: 5
           periodSeconds: 5
           failureThreshold: 30
           successThreshold: 1
-      restartPolicy: Always

@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
-metdata:
+metadata:
   name: mongodb
   labels:
     service: mongodb
@@ -17,6 +17,7 @@ spec:
     spec:
       imagePullSecrets:
       - name: dock
+      restartPolicy: Always
       containers:
       - name: mongodb
         image: sphari/mongodb:3
@@ -34,5 +35,4 @@ spec:
             memory: 100Mi
         ports:
         - containerPort: 27017
-      restartPolicy: Always
 

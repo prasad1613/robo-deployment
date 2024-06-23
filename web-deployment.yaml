@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
-metdata:
+metadata:
   name: web
   labels:
     service: web
@@ -34,4 +34,3 @@ spec:
             memory: 100Mi
         ports:
         - containerPort: 8080
-      restartPolicy: Always
