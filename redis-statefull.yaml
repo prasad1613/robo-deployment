@@ -1,48 +1,19 @@
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: data-pv
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: standard
-  hostPath:
-    path: "/data"
-
----
-
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: data-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: standard
-  resources:
-    requests:
-      storage: 1Gi
-
----
-
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: redis
   labels:
-    app: redis
+    service: redis
+  name: redis
 spec:
-  serviceName: "redis"
   replicas: 1
   selector:
     matchLabels:
-      app: redis
+      service: redis
+  serviceName: redis
   template:
     metadata:
       labels:
-        app: redis
+        service: redis
     spec:
       containers:
       - name: redis
@@ -50,9 +21,22 @@ spec:
         ports:
         - containerPort: 6379
         volumeMounts:
-        - mountPath: /data
-          name: data
-      volumes:
-       - name: data
-         persistentVolumeClaim:
-           claimName: data-pvc
+          - name: data
+            mountPath: /mnt/redis
+        resources:
+          limits:
+            cpu: 200m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 50Mi
+      restartPolicy: Always
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        volumeMode: Filesystem
+        resources:
+          requests:
+            storage: 1Gi
